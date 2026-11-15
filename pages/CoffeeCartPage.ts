@@ -56,43 +56,27 @@ export class CoffeeCartPage {
   }
 
 async doubleClickCoffeeTitle(coffeeName: string) {
-  const coffeeTitle = this.page
-    .locator('li')
-    .filter({
-      has: this.page.locator(
-        `[aria-label="${coffeeName}"]`
-      ),
-    })
-    .locator('h4');
+    const coffeeTitle = this.page
+      .locator('li')
+      .filter({
+        has: this.page.locator(
+          `[aria-label="${coffeeName}"]`
+        ),
+      })
+      .locator('h4');
 
-  await coffeeTitle.dblclick();
-  
-}
+    await coffeeTitle.dblclick();
+  }
 
-async doubleClickCoffeeTitle(coffeeName: string) {
-  const coffeeTitle = this.page
-    .locator('li')
-    .filter({
-      has: this.page.locator(
-        `[aria-label="${coffeeName}"]`
-      ),
-    })
-    .locator('h4');
+  async skipPromoOffer() {
+    await this.page.getByRole('button', {
+      name: "Nah, I'll skip.",
+    }).click();
+  }
 
-  await coffeeTitle.dblclick();
-}
-
-
-async skipPromoOffer() {
-  await this.page.getByRole('button', {
-    name: "Nah, I'll skip.",
-  }).click();
-}
-
-async acceptPromoOffer() {
-  await this.page.getByRole('button', {
-    name: 'Yes, of course!',
-  }).click();
-}
-
+  async acceptPromoOffer() {
+    await this.page.getByRole('button', {
+      name: 'Yes, of course!',
+    }).click();
+  }
 }
