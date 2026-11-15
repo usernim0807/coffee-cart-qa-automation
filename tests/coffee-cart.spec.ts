@@ -125,3 +125,33 @@ test('should display promo popup after adding three coffees', async ({
     page.getByRole('link', { name: 'Cart page' })
   ).toContainText('cart (3)');
 });
+// Test 7: Verify user can accept the promo offer
+test('should add promotional Mocha when promo offer is accepted', async ({
+  coffeeCartPage,
+  page,
+}) => {
+  await coffeeCartPage.goto();
+
+  // Add three coffees to trigger the promo popup
+  await coffeeCartPage.addCoffeeByName(coffeeData.product.name);
+  await coffeeCartPage.addCoffeeByName(coffeeData.product.name);
+  await coffeeCartPage.addCoffeeByName(coffeeData.product.name);
+
+  // Verify promo popup appears
+  const promoPopup = page.getByText(
+    coffeeData.promo.message
+  );
+
+  await expect(promoPopup).toBeVisible();
+
+  // Accept the promo offer
+  await coffeeCartPage.acceptPromoOffer();
+
+  // Verify promo popup disappears
+  await expect(promoPopup).toBeHidden();
+
+  // Verify Mocha was added to the cart
+  await expect(
+    page.getByRole('link', { name: 'Cart page' })
+  ).toContainText('cart (4)');
+});
