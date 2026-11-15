@@ -1,0 +1,20 @@
+
+{
+  "name": "coffee-cart-qa-automation",
+  "version": "1.0.0",
+  "description": "Playwright UI automation framework for Coffee Cart",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
