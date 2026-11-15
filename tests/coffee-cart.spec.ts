@@ -155,3 +155,30 @@ test('should add promotional Mocha when promo offer is accepted', async ({
     page.getByRole('link', { name: 'Cart page' })
   ).toContainText('cart (4)');
 });
+// Test 8: Verify promo popup appears every 3rd cart item
+test('should show promo offer at cart items 3, 6, and 9', async ({
+  coffeeCartPage,
+  page,
+}) => {
+  await coffeeCartPage.goto();
+
+  const promoPopup = page.getByText(coffeeData.promo.message);
+
+  // Add 9 coffees, skipping each promo offer
+  for (let i = 1; i <= 9; i++) {
+    await coffeeCartPage.addCoffeeByName(coffeeData.product.name);
+
+    if (i % 3 === 0) {
+      await expect(promoPopup).toBeVisible();
+
+      await coffeeCartPage.skipPromoOffer();
+
+      await expect(promoPopup).toBeHidden();
+    }
+  }
+
+  // Verify that only 9 coffees were added
+  await expect(
+    page.getByRole('link', { name: 'Cart page' })
+  ).toContainText('cart (9)');
+});
